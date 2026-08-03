@@ -105,18 +105,15 @@ class LiveCapture:
     def _capture_thread(self) -> None:
         """Run in a background thread; push packets onto the queue."""
         try:
+            resolved = _resolve_interface_name(self.interface)
             sniff(
-                iface=self.interface,
+                iface=resolved,
                 timeout=self.timeout,
                 store=False,
                 prn=self._enqueue,
                 stop_filter=lambda _: self._stop_event.is_set(),
             )
-        except PermissionError as exc:  # OS-level
-            self._error = PermissionError(str(exc))
-        except OSError as exc:
-            # Npcap / libpcap errors surface as OSError with messages like
-            # "You don't have permission to capture on that device"
+        except Exception as exc:
             msg = str(exc).lower()
             if any(kw in msg for kw in ("permission", "access", "privilege", "administrator")):
                 self._error = PermissionError(str(exc))
@@ -125,9 +122,61 @@ class LiveCapture:
         finally:
             self._queue.put(None)  # sentinel
 
+
     def _enqueue(self, pkt: "Packet") -> None:
         """Callback from scapy's sniff; put packet on queue (non-blocking)."""
         try:
             self._queue.put_nowait(pkt)
         except queue.Full:
             pass  # drop packet if consumer is too slow
+
+
+def _resolve_interface_name(name: str) -> str:
+    """
+    Resolve a user-provided interface name to the actual Scapy interface name.
+    Supports case-insensitive exact, normalized, and substring matches.
+    If no match is found, raises ValueError listing all available interfaces.
+    """
+    if not _SCAPY_OK:
+        return name
+
+    def _normalize(s: str) -> str:
+        return "".join(c for c in s.lower() if c.isalnum())
+
+    norm_name = _normalize(name)
+
+    # 1. Exact match (case-insensitive)
+    for iface in conf.ifaces.values():
+        if iface.name.lower() == name.lower() or (iface.description and iface.description.lower() == name.lower()):
+            return iface.name
+
+    # 2. Normalized match (exact match after removing punctuation/spaces)
+    for iface in conf.ifaces.values():
+        if _normalize(iface.name) == norm_name or (iface.description and _normalize(iface.description) == norm_name):
+            return iface.name
+
+    # 3. Substring match
+    matches = []
+    for iface in conf.ifaces.values():
+        desc = iface.description or ""
+        if (name.lower() in iface.name.lower() or name.lower() in desc.lower() or
+                norm_name in _normalize(iface.name) or norm_name in _normalize(desc)):
+            matches.append(iface.name)
+
+    if len(matches) == 1:
+        return matches[0]
+    elif len(matches) > 1:
+        # Prefer matches that start with the search name
+        starts_with = [m for m in matches if m.lower().startswith(name.lower()) or _normalize(m).startswith(norm_name)]
+        return starts_with[0] if starts_with else matches[0]
+
+    # No match found - raise ValueError with list of interfaces
+    ifaces_list = []
+    for iface in conf.ifaces.values():
+        desc = f" ({iface.description})" if iface.description else ""
+        ifaces_list.append(f"  * '{iface.name}'{desc}")
+
+    available_str = "\n".join(ifaces_list)
+    raise ValueError(
+        f"Interface '{name}' not found.\n\nAvailable interfaces:\n{available_str}"
+    )
