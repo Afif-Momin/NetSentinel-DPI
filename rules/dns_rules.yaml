@@ -1,0 +1,84 @@
+# NetSentinel-DPI DNS Detection Rules
+# MITRE ATT&CK: https://attack.mitre.org/techniques/
+
+- id: DNS-001
+  name: DNS Tunneling — High Entropy QNAME
+  severity: high
+  mitre: T1071.004
+  description: "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling"
+  match:
+    type: dns_entropy
+    threshold: 3.8
+
+- id: DNS-002
+  name: DNS Tunneling — Long QNAME
+  severity: high
+  mitre: T1071.004
+  description: "Unusually long DNS query name, a common indicator of DNS tunneling tools"
+  match:
+    type: dns_query_regex
+    regex: "^.{50,}\\."
+
+- id: DNS-003
+  name: DNS Tunneling — Excessive TXT Records
+  severity: high
+  mitre: T1071.004
+  description: "High volume of DNS TXT record responses, often used for data exfiltration via DNS tunneling"
+  match:
+    type: dns_txt_volume
+    threshold: 5
+
+- id: DNS-004
+  name: DNS Tunneling — High Query Rate
+  severity: medium
+  mitre: T1071.004
+  description: "Abnormally high rate of DNS queries from a single flow, possible tunneling or DGA activity"
+  match:
+    type: dns_query_rate
+    threshold: 50
+
+- id: DNS-005
+  name: Suspicious DNS Query — Onion Domain
+  severity: medium
+  mitre: T1090.003
+  description: "DNS query for .onion domain may indicate Tor network usage or proxy tool misconfiguration"
+  match:
+    type: dns_query_regex
+    regex: "\\.onion\\.?$"
+
+- id: DNS-006
+  name: Suspicious DNS Query — DGA-like Pattern
+  severity: medium
+  mitre: T1568.002
+  description: "Domain name that looks algorithmically generated (DGA): long random-looking subdomain"
+  match:
+    type: dns_query_regex
+    regex: "^[a-z0-9]{15,}\\."
+
+- id: DNS-007
+  name: DNS Query — Known Malware C2 Suffix Pattern
+  severity: critical
+  mitre: T1071.004
+  description: "DNS query matching known patterns of malware command-and-control infrastructure"
+  match:
+    type: dns_query_regex
+    regex: "(?i)(dyndns|no-ip|ddns|servebeer|servegame|hopto|zapto|sytes|myftp|ddnsking|duckdns)\\.(org|net|com|info)"
+
+- id: DNS-008
+  name: DNS Rebinding Attack Pattern
+  severity: high
+  mitre: T1557
+  description: "DNS query pattern consistent with DNS rebinding attacks targeting internal services"
+  match:
+    type: dns_query_regex
+    regex: "(?i)(127\\.0\\.0\\.1|192\\.168\\.|10\\.[0-9]+\\.[0-9]+\\.|172\\.(1[6-9]|2[0-9]|3[01])\\.).*\\.(com|net|org|io)"
+
+- id: SCAN-001
+  name: Port Scan Detected
+  severity: high
+  mitre: T1046
+  description: "Single source IP contacting an abnormally large number of distinct destination ports, indicating port scanning"
+  match:
+    type: port_scan
+    threshold_ports: 15
+    window_seconds: 120

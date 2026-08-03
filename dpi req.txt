@@ -1,0 +1,71 @@
+Build a full-stack Deep Packet Inspection (DPI) bypass and analysis tool with 
+GenAI capabilities, inspired by GoodbyeDPI on GitHub. This is a developer/security 
+research tool for network analysis and censorship circumvention research.
+
+---
+
+## PROJECT NAME: NeuralDPI
+
+## TECH STACK
+- Backend: Python (Scapy + AsyncIO + FastAPI)
+- Frontend: React + Tailwind CSS (dark terminal aesthetic)
+- AI Layer: Claude API (claude-sonnet-4-6) for traffic pattern analysis
+- Packet Engine: Scapy / dpkt / pypcap
+- Storage: SQLite for session logs
+
+---
+
+## CORE FEATURES TO BUILD
+
+### 1. PACKET INTERCEPTION ENGINE
+- Raw socket listener (similar to GoodbyeDPI's WinDivert approach, use libpcap/Scapy on Linux/Mac)
+- Capture TCP/UDP/HTTP/HTTPS/DNS packets in real-time
+- Display live packet stream in the UI (source IP, dest IP, protocol, port, size, flags)
+- Packet hex dump viewer (like Wireshark-style)
+
+### 2. DPI BYPASS TECHNIQUES (implement all GoodbyeDPI methods)
+- HTTP fragmentation: split HTTP requests into smaller TCP segments
+- TCP segmentation: break SYN packets into smaller pieces
+- TTL manipulation: set low TTL on initial packets so DPI sees garbage
+- Wrong sequence numbers on first few bytes
+- Fake RST injection to confuse stateful firewalls
+- Host header case randomization ("HoSt: example.com")
+- DNS-over-HTTPS (DoH) resolver (bypass DNS-based blocking)
+- SNI fragmentation for TLS ClientHello
+- Each technique should be toggleable ON/OFF in the UI
+
+### 3. GENAI ANALYSIS ENGINE (Claude API integration)
+- After capturing a batch of packets, send metadata (not raw content) to Claude API
+- Claude analyzes: "What DPI signatures are present?", "Is this traffic being throttled?",
+  "What bypass technique would work best for this traffic pattern?"
+- Display AI insights panel in the UI with Claude's real-time analysis
+- "Auto-suggest" mode: Claude recommends which bypass combo to enable
+- AI-powered anomaly detection: flag unusual packet timing/fingerprints
+- Natural language query: user can ask "Why is my YouTube being throttled?" 
+  and Claude explains based on captured packets
+
+### 4. TRAFFIC DASHBOARD (React UI)
+Dark terminal aesthetic (deep navy/black bg, green/cyan monospace accents):
+- Live packet feed table (auto-scrolling, filterable)
+- Protocol breakdown pie chart (HTTP vs HTTPS vs DNS vs Other)
+- Bandwidth timeline graph (packets/sec over time)
+- Bypass mode control panel (toggle switches for each technique)
+- AI Insights sidebar panel (streaming Claude responses)
+- Connection map: show source→destination flows
+- Session statistics (packets captured, bypassed, blocked, errors)
+
+### 5. DNS TOOLS
+- Built-in DoH resolver (Cloudflare 1.1.1.1, Google 8.8.8.8)
+- DNS leak test
+- Domain blocklist checker (check if domain is DPI-blocked)
+- DNS response time comparison chart
+
+### 6. CONFIG & PROFILES
+- Save/load bypass configuration profiles (JSON)
+- Preset profiles: "YouTube", "Streaming", "Gaming", "Stealth"
+- Export packet captures as .pcap files
+- Import .pcap files for offline AI analysis
+
+---
+
+## FILE STRUCTURE

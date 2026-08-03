@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NetSentinel-DPI — Incident Report</title>
+  <style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #c9d1d9; --muted: #8b949e;
+  --cyan: #58a6ff; --green: #3fb950; --yellow: #e3b341;
+  --orange: #d29922; --red: #f85149; --purple: #bc8cff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; }
+header { background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  border-bottom: 2px solid var(--cyan); padding: 24px 40px; }
+header h1 { font-size: 24px; color: var(--cyan); letter-spacing: 1px; }
+header p { color: var(--muted); margin-top: 4px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 40px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px; text-align: center; }
+.card .value { font-size: 32px; font-weight: 700; color: var(--cyan); }
+.card .label { color: var(--muted); margin-top: 4px; font-size: 12px; text-transform: uppercase; }
+h2 { color: var(--cyan); font-size: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+section { margin-bottom: 40px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: var(--surface); color: var(--muted); text-align: left;
+  padding: 8px 12px; border-bottom: 1px solid var(--border); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:hover td { background: rgba(88,166,255,0.04); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-low    { background: #1b4d1e; color: var(--green); }
+.badge-medium { background: #3d2f00; color: var(--yellow); }
+.badge-high   { background: #3d1f00; color: var(--orange); }
+.badge-critical { background: #3d0000; color: var(--red); }
+.mono { font-family: 'Consolas', 'Monaco', monospace; }
+footer { text-align: center; padding: 24px; color: var(--muted); border-top: 1px solid var(--border); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🛡 NetSentinel-DPI — Incident Report</h1>
+  <p>Generated 2026-08-03 14:15 UTC | Rules loaded: 19</p>
+</header>
+<div class="container">
+
+  <!-- Summary cards -->
+  <div class="grid">
+    <div class="card"><div class="value">32</div><div class="label">Packets</div></div>
+    <div class="card"><div class="value">2 KB</div><div class="label">Traffic Volume</div></div>
+    <div class="card"><div class="value">30</div><div class="label">Flows</div></div>
+    <div class="card"><div class="value">21</div><div class="label">Alerts</div></div>
+    <div class="card"><div class="value">0</div><div class="label">Critical</div></div>
+    <div class="card"><div class="value">11</div><div class="label">High</div></div>
+  </div>
+
+  <!-- Protocol breakdown -->
+  <section>
+    <h2>Protocol Breakdown</h2>
+    <table>
+      <tr><th>Protocol</th><th>Flows</th><th>Share</th></tr>
+      <tr><td>TCP</td><td>20</td><td>66.7%</td></tr><tr><td>UDP</td><td>10</td><td>33.3%</td></tr>
+    </table>
+  </section>
+
+  <!-- Alerts table -->
+  <section>
+    <h2>Alerts (21)</h2>
+    <table><tr><th>Time</th><th>Rule ID</th><th>Severity</th><th>MITRE</th><th>Source</th><th>Destination</th><th>Detail</th></tr><tr><td>19:41:22</td><td class='mono'>HTTP-004</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1083</td><td class='mono'>192.168.1.51:55001</td><td class='mono'>10.10.10.100:80</td><td>uri=/../../../../etc/passwd</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53101</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.42 qname=LBsJgYykdzbGlF2YE07MNjEK.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53102</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.33 qname=tKLrdEkba4dr0nTBsVXG7lAX.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53103</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.50 qname=cmq3ar4LdTCVETsHlXwby9v0.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53104</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.33 qname=j4oFDWTa5tWXdJ9ScPYtNBRc.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53105</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.33 qname=eKoWp1UiIszOuMbW6zkb5tBZ.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53106</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.05 qname=ncOvxonYMEK4DfbOOWFW47fI.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53107</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.14 qname=TNdpiDKsUNuHfDVZGskBrsTS.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53108</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.30 qname=kHLsnKzgGNzSVz3VoTeUaCwx.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1071.004</td><td class='mono'>172.16.0.5:53109</td><td class='mono'>8.8.8.8:53</td><td>entropy=4.00 qname=Fy0TPUOB5oDFDaOBRa0IPQvz.c2.attacker.io</td></tr><tr><td>19:45:33</td><td class='mono'>SCAN-001</td><td><span class='badge badge-high'>high</span></td><td class='mono'>T1046</td><td class='mono'>10.0.0.99:0</td><td class='mono'>*:0</td><td>distinct_ports=17 threshold=15</td></tr><tr><td>19:41:22</td><td class='mono'>HTTP-005</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1595.002</td><td class='mono'>192.168.1.50:55000</td><td class='mono'>10.10.10.100:80</td><td>user_agent=sqlmap/1.7</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53101</td><td class='mono'>8.8.8.8:53</td><td>qname=LBsJgYykdzbGlF2YE07MNjEK.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53102</td><td class='mono'>8.8.8.8:53</td><td>qname=tKLrdEkba4dr0nTBsVXG7lAX.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53103</td><td class='mono'>8.8.8.8:53</td><td>qname=cmq3ar4LdTCVETsHlXwby9v0.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53104</td><td class='mono'>8.8.8.8:53</td><td>qname=j4oFDWTa5tWXdJ9ScPYtNBRc.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53105</td><td class='mono'>8.8.8.8:53</td><td>qname=eKoWp1UiIszOuMbW6zkb5tBZ.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53106</td><td class='mono'>8.8.8.8:53</td><td>qname=ncOvxonYMEK4DfbOOWFW47fI.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53107</td><td class='mono'>8.8.8.8:53</td><td>qname=TNdpiDKsUNuHfDVZGskBrsTS.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53108</td><td class='mono'>8.8.8.8:53</td><td>qname=kHLsnKzgGNzSVz3VoTeUaCwx.c2.attacker.io</td></tr><tr><td>19:41:22</td><td class='mono'>DNS-006</td><td><span class='badge badge-medium'>medium</span></td><td class='mono'>T1568.002</td><td class='mono'>172.16.0.5:53109</td><td class='mono'>8.8.8.8:53</td><td>qname=Fy0TPUOB5oDFDaOBRa0IPQvz.c2.attacker.io</td></tr></table>
+  </section>
+
+  <!-- JA3 fingerprints -->
+  <section>
+    <h2>TLS JA3 Fingerprints (0)</h2>
+    <p style='color:var(--muted)'>No TLS ClientHellos captured.</p>
+  </section>
+
+  <!-- DNS stats -->
+  <section>
+    <h2>DNS Statistics</h2>
+    <table><tr><th>QNAME</th><th>Type</th><th>TXT Records</th><th>Label Entropy</th></tr><tr><td class='mono'>LBsJgYykdzbGlF2YE07MNjEK.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.42</td></tr><tr><td class='mono'>tKLrdEkba4dr0nTBsVXG7lAX.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.33</td></tr><tr><td class='mono'>cmq3ar4LdTCVETsHlXwby9v0.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.50</td></tr><tr><td class='mono'>j4oFDWTa5tWXdJ9ScPYtNBRc.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.33</td></tr><tr><td class='mono'>eKoWp1UiIszOuMbW6zkb5tBZ.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.33</td></tr><tr><td class='mono'>ncOvxonYMEK4DfbOOWFW47fI.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.05</td></tr><tr><td class='mono'>TNdpiDKsUNuHfDVZGskBrsTS.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.14</td></tr><tr><td class='mono'>kHLsnKzgGNzSVz3VoTeUaCwx.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.30</td></tr><tr><td class='mono'>Fy0TPUOB5oDFDaOBRa0IPQvz.c2.attacker.io</td><td>TXT</td><td>0</td><td>4.00</td></tr></table><p style='color:var(--muted);margin-top:8px'>Showing up to 100 queries. Total: 9</p>
+  </section>
+
+  <!-- Top talkers -->
+  <section>
+    <h2>Top Talkers</h2>
+    <table>
+      <tr><th>Source IP</th><th>Bytes</th></tr>
+      <tr><td class="mono">172.16.0.5</td><td>990 B</td></tr><tr><td class="mono">10.0.0.99</td><td>918 B</td></tr><tr><td class="mono">10.0.0.1</td><td>228 B</td></tr><tr><td class="mono">192.168.1.50</td><td>142 B</td></tr><tr><td class="mono">192.168.1.51</td><td>137 B</td></tr>
+    </table>
+  </section>
+
+</div>
+<footer>NetSentinel-DPI — Portfolio Deep Packet Inspection Tool</footer>
+</body>
+</html>

@@ -1,0 +1,729 @@
+{
+  "generated_at": "2026-08-03T14:15:33.974846Z",
+  "summary": {
+    "total_packets": 32,
+    "total_bytes": 2415,
+    "total_flows": 30,
+    "total_alerts": 21,
+    "rules_loaded": 19,
+    "protocol_breakdown": {
+      "TCP": 20,
+      "UDP": 10
+    }
+  },
+  "alert_counts_by_severity": {
+    "low": 0,
+    "medium": 10,
+    "high": 11,
+    "critical": 0
+  },
+  "alerts": [
+    {
+      "timestamp": 1785766282.175536,
+      "rule_id": "HTTP-005",
+      "rule_name": "Suspicious User-Agent \u2014 Scanner/Tool",
+      "severity": "medium",
+      "mitre": "T1595.002",
+      "description": "Detects known vulnerability scanners and recon tools by User-Agent",
+      "src": "192.168.1.50:55000",
+      "dst": "10.10.10.100:80",
+      "proto": "TCP",
+      "detail": "user_agent=sqlmap/1.7"
+    },
+    {
+      "timestamp": 1785766282.175854,
+      "rule_id": "HTTP-004",
+      "rule_name": "Directory Traversal",
+      "severity": "high",
+      "mitre": "T1083",
+      "description": "Detects path traversal attempts to access files outside web root",
+      "src": "192.168.1.51:55001",
+      "dst": "10.10.10.100:80",
+      "proto": "TCP",
+      "detail": "uri=/../../../../etc/passwd"
+    },
+    {
+      "timestamp": 1785766282.176505,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53101",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.42 qname=LBsJgYykdzbGlF2YE07MNjEK.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.176505,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53101",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=LBsJgYykdzbGlF2YE07MNjEK.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.176746,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53102",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.33 qname=tKLrdEkba4dr0nTBsVXG7lAX.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.176746,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53102",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=tKLrdEkba4dr0nTBsVXG7lAX.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177003,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53103",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.50 qname=cmq3ar4LdTCVETsHlXwby9v0.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177003,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53103",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=cmq3ar4LdTCVETsHlXwby9v0.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177251,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53104",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.33 qname=j4oFDWTa5tWXdJ9ScPYtNBRc.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177251,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53104",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=j4oFDWTa5tWXdJ9ScPYtNBRc.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177484,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53105",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.33 qname=eKoWp1UiIszOuMbW6zkb5tBZ.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177484,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53105",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=eKoWp1UiIszOuMbW6zkb5tBZ.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.17772,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53106",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.05 qname=ncOvxonYMEK4DfbOOWFW47fI.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.17772,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53106",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=ncOvxonYMEK4DfbOOWFW47fI.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177942,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53107",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.14 qname=TNdpiDKsUNuHfDVZGskBrsTS.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.177942,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53107",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=TNdpiDKsUNuHfDVZGskBrsTS.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.178188,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53108",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.30 qname=kHLsnKzgGNzSVz3VoTeUaCwx.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.178188,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53108",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=kHLsnKzgGNzSVz3VoTeUaCwx.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.178415,
+      "rule_id": "DNS-001",
+      "rule_name": "DNS Tunneling \u2014 High Entropy QNAME",
+      "severity": "high",
+      "mitre": "T1071.004",
+      "description": "QNAME first label has high Shannon entropy, indicating base64/hex encoded data used for DNS tunneling",
+      "src": "172.16.0.5:53109",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "entropy=4.00 qname=Fy0TPUOB5oDFDaOBRa0IPQvz.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766282.178415,
+      "rule_id": "DNS-006",
+      "rule_name": "Suspicious DNS Query \u2014 DGA-like Pattern",
+      "severity": "medium",
+      "mitre": "T1568.002",
+      "description": "Domain name that looks algorithmically generated (DGA): long random-looking subdomain",
+      "src": "172.16.0.5:53109",
+      "dst": "8.8.8.8:53",
+      "proto": "UDP",
+      "detail": "qname=Fy0TPUOB5oDFDaOBRa0IPQvz.c2.attacker.io"
+    },
+    {
+      "timestamp": 1785766533.9513628,
+      "rule_id": "SCAN-001",
+      "rule_name": "Port Scan Detected",
+      "severity": "high",
+      "mitre": "T1046",
+      "description": "Single source IP contacting an abnormally large number of distinct destination ports, indicating port scanning",
+      "src": "10.0.0.99:0",
+      "dst": "*:0",
+      "proto": "TCP",
+      "detail": "distinct_ports=17 threshold=15"
+    }
+  ],
+  "flows": [
+    {
+      "proto": "TCP",
+      "src": "10.0.0.1:54321",
+      "dst": "93.184.216.34:80",
+      "total_packets": 3,
+      "total_bytes": 228,
+      "duration_s": 0.0,
+      "tcp_state": "ESTABLISHED",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": [
+        {
+          "method": "GET",
+          "uri": "/page",
+          "user_agent": "Mozilla/5.0"
+        }
+      ]
+    },
+    {
+      "proto": "TCP",
+      "src": "192.168.1.50:55000",
+      "dst": "10.10.10.100:80",
+      "total_packets": 1,
+      "total_bytes": 142,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 1,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": [
+        {
+          "method": "GET",
+          "uri": "/login?user=admin'--&pass=x",
+          "user_agent": "sqlmap/1.7"
+        }
+      ]
+    },
+    {
+      "proto": "TCP",
+      "src": "192.168.1.51:55001",
+      "dst": "10.10.10.100:80",
+      "total_packets": 1,
+      "total_bytes": 137,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 1,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": [
+        {
+          "method": "GET",
+          "uri": "/../../../../etc/passwd",
+          "user_agent": "curl/7.88"
+        }
+      ]
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53100",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53101",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "LBsJgYykdzbGlF2YE07MNjEK.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53102",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "tKLrdEkba4dr0nTBsVXG7lAX.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53103",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "cmq3ar4LdTCVETsHlXwby9v0.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53104",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "j4oFDWTa5tWXdJ9ScPYtNBRc.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53105",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "eKoWp1UiIszOuMbW6zkb5tBZ.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53106",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "ncOvxonYMEK4DfbOOWFW47fI.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53107",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "TNdpiDKsUNuHfDVZGskBrsTS.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53108",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "kHLsnKzgGNzSVz3VoTeUaCwx.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "UDP",
+      "src": "172.16.0.5:53109",
+      "dst": "8.8.8.8:53",
+      "total_packets": 1,
+      "total_bytes": 99,
+      "duration_s": 0.0,
+      "tcp_state": "UNKNOWN",
+      "alert_count": 2,
+      "tls_ja3": [],
+      "dns_queries": [
+        {
+          "qname": "Fy0TPUOB5oDFDaOBRa0IPQvz.c2.attacker.io",
+          "qtype": "TXT"
+        }
+      ],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:21",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:22",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:23",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:25",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:80",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:110",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:143",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:443",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:445",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:3389",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:5900",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:8080",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:8443",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:3306",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:5432",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:6379",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    },
+    {
+      "proto": "TCP",
+      "src": "10.0.0.99:12345",
+      "dst": "192.168.1.200:27017",
+      "total_packets": 1,
+      "total_bytes": 54,
+      "duration_s": 0.0,
+      "tcp_state": "SYN_SENT",
+      "alert_count": 0,
+      "tls_ja3": [],
+      "dns_queries": [],
+      "http_requests": []
+    }
+  ]
+}

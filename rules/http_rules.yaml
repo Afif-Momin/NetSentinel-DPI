@@ -1,0 +1,92 @@
+# NetSentinel-DPI HTTP Detection Rules
+# MITRE ATT&CK: https://attack.mitre.org/techniques/
+
+- id: HTTP-001
+  name: Suspicious HTTP Method
+  severity: medium
+  mitre: T1071.001
+  description: "Detects use of non-standard HTTP methods that may indicate exploitation attempts"
+  match:
+    type: http_method
+    values: [TRACE, CONNECT, PROPFIND, PROPPATCH, MKCOL, COPY, MOVE, LOCK, UNLOCK, PATCH, OPTIONS]
+
+- id: HTTP-002
+  name: SQL Injection Attempt
+  severity: high
+  mitre: T1190
+  description: "Detects common SQL injection patterns in URI or body"
+  match:
+    type: http_uri_regex
+    regex: "(?i)(union\\s+select|select\\s+.*\\s+from|insert\\s+into|drop\\s+table|exec\\s*\\(|xp_cmdshell|;\\s*--|'\\s+or\\s+'1'\\s*=\\s*'1)"
+
+- id: HTTP-003
+  name: XSS Attack Pattern
+  severity: high
+  mitre: T1059.007
+  description: "Detects cross-site scripting patterns in HTTP requests"
+  match:
+    type: http_uri_regex
+    regex: "(?i)(<script[^>]*>|javascript\\s*:|onerror\\s*=|onload\\s*=|alert\\s*\\(|document\\.cookie|eval\\s*\\()"
+
+- id: HTTP-004
+  name: Directory Traversal
+  severity: high
+  mitre: T1083
+  description: "Detects path traversal attempts to access files outside web root"
+  match:
+    type: http_uri_regex
+    regex: "(\\.\\./|\\.\\.\\\\|%2e%2e%2f|%2e%2e/|\\.%2e/|%2e\\./)"
+
+- id: HTTP-005
+  name: Suspicious User-Agent — Scanner/Tool
+  severity: medium
+  mitre: T1595.002
+  description: "Detects known vulnerability scanners and recon tools by User-Agent"
+  match:
+    type: http_ua_regex
+    regex: "(?i)(nikto|nmap|masscan|sqlmap|burpsuite|owasp|dirbuster|gobuster|wfuzz|hydra|medusa|acunetix|nessus|openvas|nuclei|zgrab|shodan|censys|python-requests/2\\.[01])"
+
+- id: HTTP-006
+  name: Suspicious User-Agent — Empty or Missing
+  severity: low
+  mitre: T1071.001
+  description: "HTTP request with empty or missing User-Agent header"
+  match:
+    type: http_ua_regex
+    regex: "^$"
+
+- id: HTTP-007
+  name: Large Payload Upload
+  severity: medium
+  mitre: T1105
+  description: "Unusually large HTTP request body which may indicate data staging or exploit delivery"
+  match:
+    type: http_body_size
+    threshold_bytes: 5000000   # 5 MB
+
+- id: HTTP-008
+  name: SQL Injection in Body
+  severity: high
+  mitre: T1190
+  description: "Detects SQL injection patterns in HTTP POST body"
+  match:
+    type: http_body_regex
+    regex: "(?i)(union\\s+select|exec\\s*\\(|xp_cmdshell|';\\s*drop|insert\\s+into|benchmark\\s*\\(|sleep\\s*\\(\\s*\\d)"
+
+- id: HTTP-009
+  name: RFI/LFI Attempt
+  severity: high
+  mitre: T1190
+  description: "Remote/Local File Inclusion attempt detected in URI"
+  match:
+    type: http_uri_regex
+    regex: "(?i)(php://|file://|expect://|data://|zip://|phar://|http://[^/]+/[^?]+\\.php|\\?.*=(https?|ftp|php)://)"
+
+- id: HTTP-010
+  name: Command Injection Pattern
+  severity: critical
+  mitre: T1059
+  description: "Detects OS command injection patterns in HTTP requests"
+  match:
+    type: http_uri_regex
+    regex: "(?i)(;\\s*(ls|cat|id|whoami|uname|wget|curl|bash|sh|cmd|powershell)\\b|\\|\\s*(ls|cat|id|whoami|wget|curl)|`[^`]+`|\\$\\([^)]+\\))"
