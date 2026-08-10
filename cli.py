@@ -126,9 +126,11 @@ def cmd_live(interface: str, rules_dir: Path | None, duration: int) -> None:
     tracker = FlowTracker()
     engine = DetectionEngine(rules_dir=rules_dir)
 
+    captured_packets = []
     try:
         capture = LiveCapture(interface=interface, timeout=duration or None)
         for packet in capture.stream():
+            captured_packets.append(packet)
             flow = tracker.process_packet(packet)
             if flow:
                 engine.evaluate(flow, packet)
@@ -141,6 +143,27 @@ def cmd_live(interface: str, rules_dir: Path | None, duration: int) -> None:
     engine.finalize(tracker)
     dash = Dashboard(tracker=tracker, engine=engine)
     dash.print_summary()
+
+    if captured_packets:
+        import datetime
+        from scapy.utils import wrpcap
+        
+        captures_dir = Path(__file__).parent / "captures"
+        captures_dir.mkdir(exist_ok=True)
+        
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        pcap_filename = f"live_{timestamp}.pcap"
+        pcap_path = captures_dir / pcap_filename
+        
+        try:
+            wrpcap(str(pcap_path), captured_packets)
+            # Show output exactly as requested:
+            console.print(f"\n[!] {len(engine.alerts)} alerts detected")
+            console.print(f"PCAP saved: captures/{pcap_filename}\n")
+            console.print("Run:")
+            console.print(f"dpi alerts --pcap captures/{pcap_filename}\n")
+        except Exception as e:
+            console.print(f"[red]Error saving PCAP: {e}[/red]")
 
 
 @cli.command("stats")
